@@ -45,6 +45,7 @@ urlpatterns = [
     path('train/postTaskStartTrain', TrainView.api_postTaskStartTrain),
     path('train/postTaskStopTrain', TrainView.api_postTaskStopTrain),
     path('train/getTrainLog', TrainView.api_getTrainLog),
+    path('train/getTrainStatus', TrainView.api_getTrainStatus),
 
     path('trainTest/postAdd', TrainTestView.api_postAdd),
     path('trainTest/postDel', TrainTestView.api_postDel),

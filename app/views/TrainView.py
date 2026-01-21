@@ -593,6 +593,46 @@ def api_getTrainLog(request):
     }
     return HttpResponseJson(res)
 
+def api_getTrainStatus(request):
+    ret = False
+    msg = "未知错误"
+    train_status = {}
+
+    if request.method == 'GET':
+        params = parse_get_params(request)
+        train_code = params.get("train_code", "").strip()
+        
+        train = TaskTrain.objects.filter(code=train_code)
+        if len(train) > 0:
+            train = train[0]
+            # 检查进程是否还在运行
+            mTrainUtils = TrainUtils(g_logger)
+            if train.train_state == 1:
+                if not mTrainUtils.checkProcessByPid(pid=train.train_pid):
+                    train.train_state = 2
+                    train.train_stop_time = datetime.now()
+                    train.save()
+            
+            train_status = {
+                "train_state": train.train_state,
+                "train_pid": train.train_pid,
+                "train_start_time": train.train_start_time.strftime("%Y-%m-%d %H:%M:%S") if train.train_start_time else None,
+                "train_stop_time": train.train_stop_time.strftime("%Y-%m-%d %H:%M:%S") if train.train_stop_time else None
+            }
+            ret = True
+            msg = "success"
+        else:
+            msg = "训练任务不存在！"
+    else:
+        msg = "request method not supported"
+
+    res = {
+        "code": 1000 if ret else 0,
+        "msg": msg,
+        "train_status": train_status
+    }
+    return HttpResponseJson(res)
+
 
 def __checkTrainThread():
     i = 0

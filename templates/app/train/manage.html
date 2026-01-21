@@ -217,6 +217,7 @@
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">训练状态
                           </label>
                         <div class="col-md-6 col-sm-6  col-xs-12">
+                            <div id="train_status_display">
                             {% if train.train_state == 1 %}
                             <p style="color: red">训练中 <img class="top_loading_img" src="/static/images/load.gif" alt="loading"></p>
                                 {% elif train.train_state == 2 %}
@@ -224,6 +225,7 @@
                             {% else %}
                             <p>未训练</p>
                             {% endif %}
+                            </div>
                           </div>
                         </div>
 
@@ -699,9 +701,47 @@ function f_upload_file_video() {
        }
 }
 
+function f_getTrainStatus() {
+    $.ajax({
+           url: '/train/getTrainStatus',
+           type: "get",
+           async: true,
+           data: {"train_code":mTrainCode},
+           dataType: "json",
+           timeout: 0,
+           error: function () {
+            setTimeout(function() {
+                  f_getTrainStatus();
+                }, 5000);
+           },
+           success: function (res) {
+               if(1000 === res.code){
+                   let train_status = res.train_status;
+                   let train_state = train_status.train_state;
+                   let status_html = "";
+                   
+                   if(train_state == 1){
+                       status_html = "<p style=\"color: red\">训练中 <img class=\"top_loading_img\" src=\"/static/images/load.gif\" alt=\"loading\"></p>";
+                   }else if(train_state == 2){
+                       status_html = "<p style=\"color: green\">已完成</p>";
+                   }else{
+                       status_html = "<p>未训练</p>";
+                   }
+                   
+                   $("#train_status_display").html(status_html);
+               }
+
+            setTimeout(function() {
+                  f_getTrainStatus();
+                }, 5000);
+           }
+        });
+}
+
 $(function() {
     f_getTrainLog();
     f_trainTest_getIndex();
+    f_getTrainStatus();
 });
 
 </script>
