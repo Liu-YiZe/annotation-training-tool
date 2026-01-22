@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
         Title="NewLand Annotation Training Tool" Height="768" Width="1024"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Icon="logoicon.ico">
     <Grid>
         <cef:ChromiumWebBrowser x:Name="chromeBrowser" Grid.Row="0" Grid.Column="0" />
     </Grid>
