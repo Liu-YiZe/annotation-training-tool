@@ -12,22 +12,8 @@ except ImportError:
 
 class SimpleMiddleware(MiddlewareMixin):
     def process_request(self, request):
-        path = request.path_info.lstrip('/')
-
-        # print("process_request:path=%s"%path,request.session.keys(),request.session.get("user"))
-
-        if request.session.has_key("user"):
-            request.session["user"] = request.session["user"]
-            if path.startswith("login"):
-                return HttpResponseRedirect("/")
-            else:
-                return None
-        else:
-            if path.startswith("login"):
-                # 未登录状态下，需要放开的路由
-                return None
-            else:
-                return HttpResponseRedirect("/login")
+        # 移除所有登录重定向逻辑，允许所有请求通过
+        return None
 
     def process_response(self, request, response):
         # print("process_response")
