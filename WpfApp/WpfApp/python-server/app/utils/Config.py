@@ -28,7 +28,9 @@ class Config:
             # self.storageDir_www = "http://%s:%d/storage/access?filename=" % (host, adminPort)
             self.storageDir_www = "/storage/access?filename="
             self.yolo8 = config_data.get("yolo8")
-            self.yolo11 = config_data.get("yolo11")
+            self.yolo11n = config_data.get("yolo11n")
+            self.yolo11s = config_data.get("yolo11s")
+            self.yolo11m = config_data.get("yolo11m")
 
         else:
             msg = "Config read %s error" % str(filepath)

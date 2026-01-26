@@ -157,8 +157,16 @@ def add(request):
             #     "code":"yolo8"
             # },
             {
-                "name": "YOLO11",
-                "code": "yolo11"
+                "name": "YOLO11n(极致高效)",
+                "code": "yolo11n"
+            },
+            {
+                "name": "YOLO11s(快准均衡)",
+                "code": "yolo11s"
+            },
+            {
+                "name": "YOLO11m(稳健中坚)",
+                "code": "yolo11m"
             }
 
         ]
@@ -432,7 +440,7 @@ def api_postTaskStartTrain(request):
             __start_process_info = None
             __train_command = None
 
-            if train.algorithm_code == "yolo8" or train.algorithm_code == "yolo11":
+            if train.algorithm_code == "yolo8" or train.algorithm_code == "yolo11n" or train.algorithm_code == "yolo11s" or train.algorithm_code == "yolo11m":
 
                 yolo8_install_dir = getattr(g_config, train.algorithm_code)["install_dir"]
                 yolo8_venv = getattr(g_config, train.algorithm_code)["venv"]

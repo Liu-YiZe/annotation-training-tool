@@ -9,10 +9,22 @@
     "name": "yolo",
     "model": "yolov8n.pt"
   },
-  "yolo11": {
+  "yolo11n": {
     "install_dir": "./model/yolov11",
     "venv": "venv/bin/activate",
     "name": "yolo",
     "model": "yolo11n.pt"
+  },
+  "yolo11s": {
+    "install_dir": "./model/yolov11",
+    "venv": "venv/bin/activate",
+    "name": "yolo",
+    "model": "yolo11s.pt"
+  },
+  "yolo11m": {
+    "install_dir": "./model/yolov11",
+    "venv": "venv/bin/activate",
+    "name": "yolo",
+    "model": "yolo11m.pt"
   }
 }

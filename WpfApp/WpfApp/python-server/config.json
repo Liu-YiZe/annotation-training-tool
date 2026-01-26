@@ -9,10 +9,22 @@
     "name": "yolo",
     "model": "yolov8n.pt"
   },
-  "yolo11": {
+  "yolo11n": {
     "install_dir": "D:\\xclabelProject\\ai\\yolov11",
     "venv": "venv\\Scripts\\activate.bat",
     "name": "yolo",
     "model": "yolo11n.pt"
+  },
+  "yolo11s": {
+    "install_dir": "D:\\xclabelProject\\ai\\yolov11",
+    "venv": "venv\\Scripts\\activate.bat",
+    "name": "yolo",
+    "model": "yolo11s.pt"
+  },
+  "yolo11m": {
+    "install_dir": "D:\\xclabelProject\\ai\\yolov11",
+    "venv": "venv\\Scripts\\activate.bat",
+    "name": "yolo",
+    "model": "yolo11m.pt"
   }
 }

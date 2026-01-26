@@ -99,7 +99,7 @@ def api_postAdd(request):
             calcu_start_time = time.time()
 
 
-            if train.algorithm_code == "yolo8" or train.algorithm_code == "yolo11":
+            if train.algorithm_code == "yolo8" or train.algorithm_code == "yolo11n" or train.algorithm_code == "yolo11s" or train.algorithm_code == "yolo11m":
 
                 yolo8_install_dir = getattr(g_config, train.algorithm_code)["install_dir"]
                 yolo8_venv = getattr(g_config, train.algorithm_code)["venv"]
