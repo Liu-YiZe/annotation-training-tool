@@ -137,6 +137,19 @@
                         </div>
 
                         <div class="item form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" >训练集 <span class="required" style="color: red;">*</span>
+                              </label>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                             <input type="number" id="train_count"  value="5" required="required" class="form-control col-md-6 col-xs-12">
+                              </div>
+                              <label class="control-label col-md-1 col-sm-1 col-xs-12" >验证集 <span class="required" style="color: red;">*</span>
+                              </label>
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                             <input type="number" id="valid_count"  value="1" required="required" class="form-control col-md-6 col-xs-12">
+                              </div>
+                        </div>
+
+                        <div class="item form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">其他参数
                           </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -179,6 +192,51 @@
     let ele_top_msg= $("#top_msg");
     let eleSelectTask = $("#select_task");// select  选择任务
     let eleSelectAlgorithm = $("#select_algorithm");// select
+    
+    // 初始化联动效果
+    $(document).ready(function() {
+        // 训练比变化时更新训练集和验证集
+        $("#sample_ratio").on("input", function() {
+            let value = parseInt($(this).val()) || 1;
+            if (value < 1) value = 1;
+            $("#sample_ratio").val(value);
+            $("#train_count").val(value);
+            $("#valid_count").val(1);
+        });
+        
+        // 训练集变化时更新训练比
+        $("#train_count").on("input", function() {
+            let trainValue = parseInt($(this).val()) || 1;
+            if (trainValue < 1) trainValue = 1;
+            $("#train_count").val(trainValue);
+            
+            let validValue = parseInt($("#valid_count").val()) || 1;
+            if (validValue < 1) validValue = 1;
+            if (validValue > trainValue) {
+                validValue = trainValue;
+                $("#valid_count").val(validValue);
+            }
+            
+            $("#sample_ratio").val(trainValue / validValue);
+        });
+        
+        // 验证集变化时更新训练比
+        $("#valid_count").on("input", function() {
+            let validValue = parseInt($(this).val()) || 1;
+            if (validValue < 1) validValue = 1;
+            
+            let trainValue = parseInt($("#train_count").val()) || 1;
+            if (trainValue < 1) trainValue = 1;
+            
+            if (validValue > trainValue) {
+                validValue = trainValue;
+                $("#valid_count").val(validValue);
+            }
+            
+            $("#sample_ratio").val(trainValue / validValue);
+        });
+    });
+    
     function f_manage(train_code) {
         let url = "/train/manage?code="+train_code;
         window.location.href = url;
